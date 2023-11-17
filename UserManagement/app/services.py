@@ -17,6 +17,6 @@ def create_token(id: int, first_name: str, last_name: str, email: str) -> str:
     return token
 
 
-def user_email_selector(email: str):
+def user_identefier(email: str):
     user = User.objects.filter(email=email).first()
     return user

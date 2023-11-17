@@ -21,7 +21,6 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-
 class User(AbstractBaseUser):
     id = models.AutoField(verbose_name='user id', primary_key=True)
     first_name = models.CharField(verbose_name='First Name', max_length=255)
@@ -39,3 +38,7 @@ class User(AbstractBaseUser):
 
     def __str__(self) -> str:
         return self.email
+    
+    # def save(self, *args, **kwargs):
+    #     self.password = make_password(self.password)
+    #     super(User, self).save(*args, **kwargs)

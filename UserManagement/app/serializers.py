@@ -3,14 +3,11 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    # Define the password field with write_only set to True
+    password = serializers.CharField(write_only=True)
+    id = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'email', 'password')
+        fields = '__all__'
 
-    
-    # The serializers.Serializer class is derived from BaseSerializer and 
-    # it does not implement the create() method either. 
-    # So you have to create a create method to save your model.
-    # def create(self, validated_data):
-    #     return User.objects.create(**validated_data)
-    

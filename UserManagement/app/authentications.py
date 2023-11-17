@@ -5,7 +5,7 @@ import jwt
 from .models import User
 
 
-class CustomUserAuthentication(BaseAuthentication):
+class CustomAuthentication(BaseAuthentication):
     def authenticate(self, request):
         token = request.COOKIES.get("jwt")
 
