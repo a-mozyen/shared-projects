@@ -1,0 +1,20 @@
+register:
+{
+"first_name": "adnan",
+"last_name": "moz",
+"email": "a@gmail.com",
+"password": "12341234"
+}
+{
+"first_name": "john",
+"last_name": "joe",
+"email": "john@gmail.com",
+"password": "12121212"
+}
+
+
+login:
+{
+"email": "adnan@gmail.com",
+"password": "12341234"
+}
