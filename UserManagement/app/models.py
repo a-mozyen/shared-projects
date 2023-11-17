@@ -39,6 +39,6 @@ class User(AbstractBaseUser):
     def __str__(self) -> str:
         return self.email
     
-    # def save(self, *args, **kwargs):
-    #     self.password = make_password(self.password)
-    #     super(User, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.password = make_password(self.password)
+        super(User, self).save(*args, **kwargs)

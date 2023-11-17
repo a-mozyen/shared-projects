@@ -6,6 +6,7 @@ from .serializers import UserSerializer
 from .services import create_token, user_identefier
 from .authentications import CustomAuthentication
 from django.conf import settings
+from django.contrib.auth.hashers import check_password
 import jwt
 
 
@@ -25,11 +26,12 @@ class LoginAPI(APIView):
         password = request.data.get("password")
         
         user = user_identefier(email=email)
+        pwd = check_password(password=password, encoded=user.password)
         
         if user is None:
             raise exceptions.AuthenticationFailed("Wroge email")
-
-        if password != user.password:    #not user.check_password(raw_password=password):
+        
+        if not pwd:
             raise exceptions.AuthenticationFailed("Wrong password")
 
         token = create_token(id=user.id, first_name=user.first_name, last_name=user.last_name, email=user.email)
