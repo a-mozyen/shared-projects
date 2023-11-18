@@ -17,7 +17,7 @@ class CustomAuthentication(BaseAuthentication):
         except:
             raise AuthenticationFailed("Unauthorized")
 
-        user = User.objects.filter(id=payload["id"]).first()
+        user = User.objects.get(id=payload["id"])
 
         return (user, None)
     

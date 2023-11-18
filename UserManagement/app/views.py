@@ -3,11 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status, exceptions
 from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer
-from .services import create_token, user_identefier
+from .services import create_token, user_identefier, get_user
 from .authentications import CustomAuthentication
-from django.conf import settings
-from django.contrib.auth.hashers import check_password
-import jwt
+from django.contrib.auth.hashers import check_password, make_password
+from .models import User
 
 
 class RegisterAPI(APIView):
@@ -25,15 +24,19 @@ class LoginAPI(APIView):
         email = request.data.get("email")
         password = request.data.get("password")
         
+        # retrieve user data from database 
         user = user_identefier(email=email)
-        pwd = check_password(password=password, encoded=user.password)
         
         if user is None:
-            raise exceptions.AuthenticationFailed("Wroge email")
+            raise exceptions.AuthenticationFailed("Wroge credentials")
         
-        if not pwd:
-            raise exceptions.AuthenticationFailed("Wrong password")
+        # check if the entered password is what stored in database 
+        pwd = check_password(password=password, encoded=user.password)
+        
+        if not pwd or None:
+            raise exceptions.AuthenticationFailed("Wrong credentials")
 
+        # create token with the given details
         token = create_token(id=user.id, first_name=user.first_name, last_name=user.last_name, email=user.email)
 
         resp = Response()
@@ -45,18 +48,39 @@ class LoginAPI(APIView):
 
 class UserDetailsAPI(APIView):
     authentication_classes = [CustomAuthentication,]
+    permission_classes = [IsAuthenticated,]
+    
     def get(self, request):
-        token = request.COOKIES.get("jwt")
-        if not token:
-            raise exceptions.AuthenticationFailed('Permission denied, Login to access this page.')
-        
-        try:
-            user = jwt.decode(token, settings.JWT_SECRET, algorithms=["HS256"])
-        except:
-            raise exceptions.AuthenticationFailed('Permission denied')
+        # get the token from the request, decode it and check if it's valid
+        user = get_user(request=request)
 
         return Response(user, status=status.HTTP_200_OK)
-
+    
+class UserUpdate(APIView):
+    authentication_classes = [CustomAuthentication,]
+    permission_classes = [IsAuthenticated,]
+    
+    def get(self, request):
+        user = get_user(request=request)
+        
+        return Response(user, status=status.HTTP_200_OK)
+    
+    #This methode update user information
+    def put(self, request):
+        user = get_user(request=request)
+        data = request.data
+        serializer = UserSerializer(data=data)
+        if serializer.is_valid():
+            serializer.update(user, serializer)
+        
+        return Response(serializer.data , status=status.HTTP_200_OK)
+        # serializer = UserSerializer(user, data=data)
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response(serializer.data)
+        # else:
+        #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
 class LogoutApi(APIView):
     authentication_classes = [CustomAuthentication,]
@@ -66,6 +90,6 @@ class LogoutApi(APIView):
         user = request.data
         resp = Response(user)
         resp.delete_cookie("jwt")
-        resp.data = {"message": "Logout Successful"}
+        resp.data = {"Logout Successful"}
         return resp
-    
+        
