@@ -5,7 +5,8 @@ from django.contrib.auth.hashers import make_password
 
 class UserManager(BaseUserManager):
     def create_user(self, first_name, last_name, email, password, last_login, is_active, is_staff, is_superuser) -> "User":
-        user = self.model(email = self.normalize_email(email))
+        user = self.model()
+        user.email = email
         user.password = password
         user.first_name = first_name
         user.last_name = last_name
@@ -33,6 +34,7 @@ class User(AbstractBaseUser):
     is_superuser = False
 
     objects = UserManager()
+    # this field used as the login field with the password
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 

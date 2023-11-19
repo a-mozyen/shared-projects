@@ -3,16 +3,16 @@ from rest_framework.response import Response
 from rest_framework import status, exceptions
 from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer
-from .services import create_token, user_identefier, get_user
+from .services import create_token
 from .authentications import CustomAuthentication
-from django.contrib.auth.hashers import check_password, make_password
+from django.contrib.auth.hashers import check_password
 from .models import User
 
 
 class RegisterAPI(APIView):
     def post(self, request):
         # creates an instance of the UserSerializer and initializes it with the data from the HTTP POST request
-        user = UserSerializer(data=request.data) 
+        user = UserSerializer(data=request.data) # wrapper object
         if user.is_valid(raise_exception=True): # check if the data is valid or raise an exception
             user.save()
         # return the responce where the data is the data from user variable
@@ -20,14 +20,15 @@ class RegisterAPI(APIView):
 
     
 class LoginAPI(APIView):
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
+        # get the email and password from the request sent by user
         email = request.data.get("email")
         password = request.data.get("password")
         
         # retrieve user data from database 
-        user = user_identefier(email=email)
+        user = User.objects.get(email=email)
         
-        if user is None:
+        if not user or None:
             raise exceptions.AuthenticationFailed("Wroge credentials")
         
         # check if the entered password is what stored in database 
@@ -37,7 +38,7 @@ class LoginAPI(APIView):
             raise exceptions.AuthenticationFailed("Wrong credentials")
 
         # create token with the given details
-        token = create_token(id=user.id, first_name=user.first_name, last_name=user.last_name, email=user.email)
+        token = create_token(id=user.id, email=user.email)
 
         resp = Response()
 
@@ -50,36 +51,24 @@ class UserDetailsAPI(APIView):
     authentication_classes = [CustomAuthentication,]
     permission_classes = [IsAuthenticated,]
     
+    
     def get(self, request):
         # get the token from the request, decode it and check if it's valid
-        user = get_user(request=request)
+        user = User.objects.get(id=request.user.id)
+        serializer = UserSerializer(user)
 
-        return Response(user, status=status.HTTP_200_OK)
-    
-class UserUpdate(APIView):
-    authentication_classes = [CustomAuthentication,]
-    permission_classes = [IsAuthenticated,]
-    
-    def get(self, request):
-        user = get_user(request=request)
-        
-        return Response(user, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
     #This methode update user information
-    def put(self, request):
-        user = get_user(request=request)
+    def patch(self, request):
+        user = User.objects.get(id=request.user.id)
         data = request.data
-        serializer = UserSerializer(data=data)
+        serializer = UserSerializer(instance=user, data=data, partial=True)
         if serializer.is_valid():
-            serializer.update(user, serializer)
-        
-        return Response(serializer.data , status=status.HTTP_200_OK)
-        # serializer = UserSerializer(user, data=data)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return Response(serializer.data)
-        # else:
-        #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            serializer.save()
+            return Response(serializer.data , status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 class LogoutApi(APIView):
