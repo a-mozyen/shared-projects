@@ -28,19 +28,19 @@ class LoginAPI(APIView):
         # retrieve user data from database 
         user = User.objects.get(email=email)
         
-        if not user or None:
+        if not user:
             raise exceptions.AuthenticationFailed("Wroge credentials")
-        
+    
         # check if the entered password is what stored in database 
         pwd = check_password(password=password, encoded=user.password)
         
-        if not pwd or None:
+        if not pwd:
             raise exceptions.AuthenticationFailed("Wrong credentials")
-
+        
         # create token with the given details
         token = create_token(id=user.id, email=user.email)
 
-        resp = Response()
+        resp = Response('Login successfull')
 
         resp.set_cookie(key="jwt", value=token, httponly=True)
 

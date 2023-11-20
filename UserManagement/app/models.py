@@ -4,12 +4,17 @@ from django.contrib.auth.hashers import make_password
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, first_name, last_name, email, password, last_login, is_active, is_staff, is_superuser) -> "User":
+    def create_user(self, first_name, last_name, 
+                    email, password, 
+                    reg_date, last_login, 
+                    is_active, is_staff, is_superuser) -> "User":
+        
         user = self.model()
-        user.email = email
-        user.password = password
         user.first_name = first_name
         user.last_name = last_name
+        user.email = email
+        user.password = password
+        user.reg_date = reg_date
         user.last_login = last_login
         user.is_active = is_active
         user.is_staff = is_staff
@@ -18,7 +23,15 @@ class UserManager(BaseUserManager):
         return user
     
     def create_superuser(self, first_name, last_name, email, password) -> "User":
-        user = self.create_user(first_name=first_name, last_name=last_name, email=email, password=password, last_login=True, is_active=True, is_staff=True, is_superuser=True)
+        user = self.create_user(first_name=first_name, 
+                                last_name=last_name, 
+                                email=email, 
+                                password=password, 
+                                last_login=True, 
+                                is_active=True, 
+                                is_staff=True, 
+                                is_superuser=True
+                                )
         user.save()
         return user
 
@@ -28,6 +41,7 @@ class User(AbstractBaseUser):
     last_name = models.CharField(verbose_name='Last Name', max_length=255)
     email = models.EmailField(verbose_name='Email Adress', max_length=255, unique=True)
     password = models.CharField(verbose_name='Password', max_length=255, null=False, blank=False)
+    reg_date = models.DateTimeField(verbose_name='Member since', auto_now_add=True)
     last_login = models.DateTimeField(verbose_name='Last login', auto_now = True)
     is_active = True
     is_staff = False
@@ -38,9 +52,7 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    def __str__(self) -> str:
-        return self.email
-    
     def save(self, *args, **kwargs):
+        self.email = self.email.lower()
         self.password = make_password(self.password)
         super(User, self).save(*args, **kwargs)
