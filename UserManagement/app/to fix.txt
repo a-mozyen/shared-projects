@@ -1,4 +1,0 @@
-normalize email issue  done
-modify token security  
-check about tokens(httponly, store in memory, id token and session token, refresh token)  done
-reset password option

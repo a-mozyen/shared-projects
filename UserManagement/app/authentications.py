@@ -14,11 +14,10 @@ class CustomAuthentication(BaseAuthentication):
 
         try:
             payload = jwt.decode(token, settings.JWT_SECRET, algorithms=["HS256"])
-       
+
         except:
             raise AuthenticationFailed("Unauthorized")
 
         user = User.objects.get(id=payload["id"])
 
         return (user, None)
-    

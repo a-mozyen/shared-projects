@@ -8,7 +8,7 @@ def create_token(id: int, email: str):
     payload = dict(
         id=id,
         email=email,
-        exp=datetime.utcnow() + timedelta(hours=8),
+        exp=datetime.utcnow() + timedelta(hours=4),
         iat=datetime.utcnow(),
     )
     token = jwt.encode(payload, settings.JWT_SECRET, algorithm="HS256")
@@ -17,6 +17,6 @@ def create_token(id: int, email: str):
 
 def user_identefier(email: str):
     # .first() will limit the filter to one, the first record with that data
-    user = User.objects.filter(email=email).first() 
-    
+    user = User.objects.filter(email=email).first()
+
     return user
