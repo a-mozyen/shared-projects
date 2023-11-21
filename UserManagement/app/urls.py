@@ -16,5 +16,5 @@ urlpatterns = [
     path("forget_password/", ForgetPassword.as_view(), name="forget password"),
     path("password_reset/<str:token>", LogoutApi.as_view(), name="password reset"),
     path("logout/", LogoutApi.as_view(), name="logout"),
-    path("test/", Test.as_view(), name="test"),
+    path("test/", Test.as_view(), name="test"),  # testing url
 ]

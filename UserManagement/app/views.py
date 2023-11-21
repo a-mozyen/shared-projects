@@ -19,7 +19,7 @@ class RegisterAPI(APIView):
         ):  # check if the data is valid or raise an exception
             user.save()
         # return the responce where the data is the data from user variable
-        return Response(data='User created successfully', status=status.HTTP_201_CREATED)
+        return Response(data="User created successfully", status=status.HTTP_201_CREATED)
 
 
 class LoginAPI(APIView):
@@ -51,7 +51,7 @@ class LoginAPI(APIView):
         return resp
 
 
-class ForgetPassword(APIView): # NOT finished
+class ForgetPassword(APIView):  # NOT finished (under devlopement)
     def post(self, request, email):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -86,7 +86,7 @@ class ForgetPassword(APIView): # NOT finished
 class UserDetailsAPI(APIView):
     authentication_classes = [
         CustomAuthentication,
-        ]
+    ]
     permission_classes = [
         IsAuthenticated,
     ]
@@ -102,14 +102,13 @@ class UserDetailsAPI(APIView):
         user = User.objects.get(id=request.user.id)
         data = request.data
         serializer = UserSerializer(instance=user, data=data, partial=True)
-        
+
         if serializer.is_valid():
             serializer.save()
-            
-            return Response(data='Updated Successfully', status=status.HTTP_200_OK)
-       
+
+            return Response(data="Updated Successfully", status=status.HTTP_200_OK)
+
         else:
-            
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -129,5 +128,5 @@ class LogoutApi(APIView):
         return resp
 
 
-class Test(APIView): # for testing only
+class Test(APIView):  # for testing only
     pass

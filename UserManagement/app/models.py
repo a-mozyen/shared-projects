@@ -49,9 +49,7 @@ class User(AbstractBaseUser):
     first_name = models.CharField(verbose_name="First Name", max_length=255)
     last_name = models.CharField(verbose_name="Last Name", max_length=255)
     email = models.EmailField(verbose_name="Email Adress", max_length=255, unique=True)
-    password = models.CharField(
-        verbose_name="Password", max_length=255, null=False, blank=False
-    )
+    password = models.CharField(verbose_name="Password", max_length=255)
     reg_date = models.DateTimeField(verbose_name="Member since", auto_now_add=True)
     last_login = models.DateTimeField(verbose_name="Last login", auto_now=True)
     is_active = True
@@ -59,11 +57,15 @@ class User(AbstractBaseUser):
     is_superuser = False
 
     objects = UserManager()
-    # this field used as the login field with the password
+    # specifies the field used for identifying a user when logging in
     USERNAME_FIELD = "email"
+    # used to specify the fields that are required when creating a superuser
     REQUIRED_FIELDS = []
 
+    # override the save method of the User model to contain the following
     def save(self, *args, **kwargs):
+        # reformate the email field to lower case when saved to database
         self.email = self.email.lower()
+        # hashing the password field before saving it to database
         self.password = make_password(self.password)
         super(User, self).save(*args, **kwargs)
