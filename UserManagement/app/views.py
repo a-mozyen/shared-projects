@@ -14,12 +14,13 @@ class RegisterAPI(APIView):
     def post(self, request):
         # creates an instance of the UserSerializer and initializes it with the data from the HTTP POST request
         user = UserSerializer(data=request.data)  # wrapper object
-        if user.is_valid(
-            raise_exception=True
-        ):  # check if the data is valid or raise an exception
-            user.save()
-        # return the responce where the data is the data from user variable
-        return Response(data="User created successfully", status=status.HTTP_201_CREATED)
+        try:
+            if user.is_valid(raise_exception=True):  # check if the data is valid or raise an exception
+                user.save()
+                # return the responce where the data is the data from user variable
+                return Response(data="User created successfully", status=status.HTTP_201_CREATED)
+        except:
+            raise ValueError('Error when trying to regester.\nPlease try again later.')
 
 
 class LoginAPI(APIView):
@@ -29,18 +30,23 @@ class LoginAPI(APIView):
         email = email.lower()
         password = request.data.get("password")
 
-        # retrieve user data from database
-        user = User.objects.get(email=email)
+        try:
+            # retrieve user data from database
+            user = User.objects.get(email=email)
 
-        if not user:
-            raise exceptions.AuthenticationFailed(detail="Wroge credentials")
+            if not user:
+                raise exceptions.AuthenticationFailed(detail="Wroge credentials")
 
-        # check if the entered password is what stored in database
-        pwd = check_password(password=password, encoded=user.password)
+            # check if the entered password is what stored in database
+            pwd = check_password(password=password, encoded=user.password)
 
-        if not pwd:
-            raise exceptions.AuthenticationFailed(detail="Wrong credentials")
-
+            if not pwd:
+                raise exceptions.AuthenticationFailed(detail="Wrong credentials")
+        except:
+            raise exceptions.AuthenticationFailed('User not found!')
+        
+        user.update_last_login()
+        
         # create token with the given details
         token = create_token(id=user.id, email=user.email)
 
@@ -95,7 +101,7 @@ class UserDetailsAPI(APIView):
         user = User.objects.get(id=request.user.id)
         serializer = UserSerializer(user)
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     # This methode update user information
     def patch(self, request):
