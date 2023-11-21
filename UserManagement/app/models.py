@@ -7,8 +7,10 @@ from django.utils import timezone
 class UserManager(BaseUserManager):
     def create_user(
         self,
+        username,
         first_name,
         last_name,
+        dob,
         email,
         password,
         reg_date,
@@ -19,8 +21,10 @@ class UserManager(BaseUserManager):
         is_superuser) -> "User":
 
         user = self.model()
+        user.username = username
         user.first_name = first_name
         user.last_name = last_name
+        user.dob = dob
         user.email = email
         user.password = password
         user.reg_date = reg_date
@@ -33,10 +37,12 @@ class UserManager(BaseUserManager):
         return user
 
 
-    def create_superuser(self, first_name, last_name, email, password, last_login) -> "User":
+    def create_superuser(self, username, first_name, last_name, dob, email, password, last_login) -> "User":
         user = self.create_user(
+            username = username,
             first_name=first_name,
             last_name=last_name,
+            dob = dob,
             email=email,
             password=password,
             last_login=last_login,
@@ -50,12 +56,14 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     id = models.AutoField(verbose_name="User id", primary_key=True)
+    username = models.CharField(verbose_name='Username', max_length=255, unique=True, blank=True, null=True)
     first_name = models.CharField(verbose_name="First Name", max_length=255)
     last_name = models.CharField(verbose_name="Last Name", max_length=255)
+    dob = models.DateField(verbose_name='Date of birth', null=True, blank=True)
     email = models.EmailField(verbose_name="Email Adress", max_length=255, unique=True)
     password = models.CharField(verbose_name="Password", max_length=255)
     reg_date = models.DateTimeField(verbose_name="Member since", auto_now_add=True)
-    last_update = models.DateTimeField(verbose_name="Last updated", auto_now=True)
+    last_update = models.DateTimeField(verbose_name="Last updated", auto_now=True, blank=True, null=True)
     last_login = models.DateTimeField(blank=True, null=True)
     is_active = True
     is_staff = False
@@ -63,9 +71,9 @@ class User(AbstractBaseUser):
 
     objects = UserManager()
     # specifies the field used for identifying a user when logging in
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = 'email'
     # used to specify the fields that are required when creating a superuser
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'password']
 
     # override the save method of the User model to contain the following
     def save(self, *args, **kwargs):

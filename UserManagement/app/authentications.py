@@ -7,17 +7,12 @@ from .models import User
 
 class CustomAuthentication(BaseAuthentication):
     def authenticate(self, request):
-        token = request.COOKIES.get("jwt")
-
-        if not token:
-            return None
-
         try:
+            token = request.COOKIES.get("jwt")
             payload = jwt.decode(token, settings.JWT_SECRET, algorithms=["HS256"])
+            user = User.objects.get(id=payload["id"])
 
         except:
             raise AuthenticationFailed("Unauthorized")
 
-        user = User.objects.get(id=payload["id"])
-
-        return (user, None)
+        return (user,)
