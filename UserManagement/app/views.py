@@ -50,7 +50,7 @@ class LoginAPI(APIView):
         return responce
 
 
-# class ForgetPassword(APIView):  # NOT finished (under devlopement)
+# class ForgetPassword(APIView):  # NOT finished
 #     def post(self, request, email):
 #         serializer = UserSerializer(data=request.data)
 #         if serializer.is_valid():
@@ -124,5 +124,3 @@ class LogoutApi(APIView):
         return responce
 
 
-class Test(APIView):  # for testing only
-    pass 
