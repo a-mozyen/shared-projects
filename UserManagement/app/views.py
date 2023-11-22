@@ -14,15 +14,11 @@ class RegisterAPI(APIView):
     def post(self, request):
         # creates an instance of the UserSerializer and initializes it with the data from the HTTP POST request
         user = UserSerializer(data=request.data)  # wrapper object
-        # try:
+
         if user.is_valid(raise_exception=True):  # check if the data is valid or raise an exception
             user.save()
             # return the responce where the data is the data from user variable
             return Response(data="User created successfully", status=status.HTTP_201_CREATED)
-        # except:
-        #     raise exceptions.AuthenticationFailed(
-        #         detail='Error when trying to regester. Please try again later.'
-        #         )
 
 
 class LoginAPI(APIView):

@@ -1,8 +1,10 @@
 from django.conf import settings
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
-import jwt
 from .models import User
+from datetime import timedelta, datetime
+from django.conf import settings
+import jwt
 
 
 class CustomAuthentication(BaseAuthentication):
@@ -16,3 +18,15 @@ class CustomAuthentication(BaseAuthentication):
             raise AuthenticationFailed("Unauthorized")
 
         return (user,)
+
+
+
+def create_token(id: int, email: str):
+    payload = dict(
+        id=id,
+        email=email,
+        exp=datetime.utcnow() + timedelta(hours=4),
+        iat=datetime.utcnow(),
+    )
+    token = jwt.encode(payload, settings.JWT_SECRET, algorithm="HS256")
+    return token
