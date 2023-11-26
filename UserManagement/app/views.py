@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status, exceptions
 from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer
-from .services import create_token
+from .authentications import create_token
 from .authentications import CustomAuthentication
 from django.contrib.auth.hashers import check_password
 from .models import User
@@ -18,7 +18,7 @@ class RegisterAPI(APIView):
         if user.is_valid(raise_exception=True):  # check if the data is valid or raise an exception
             user.save()
             # return the responce where the data is the data from user variable
-            return Response(data="User created successfully", status=status.HTTP_201_CREATED)
+            return Response(data="User created", status=status.HTTP_201_CREATED)
 
 
 class LoginAPI(APIView):
@@ -30,16 +30,13 @@ class LoginAPI(APIView):
             password = request.data.get("password")
             # retrieve user data from database
             user = User.objects.get(email=email)
-
         except:
-            raise exceptions.AuthenticationFailed('User not found!')
-
-        if not user:
-            raise exceptions.AuthenticationFailed(detail="Wroge credentials")
+            raise exceptions.APIException(detail="Wroge credentials")
+        
         # check if the entered password is what stored in database
         pwd = check_password(password=password, encoded=user.password)
         if not pwd:
-            raise exceptions.AuthenticationFailed(detail="Wrong credentials")
+            raise exceptions.APIException(detail="Wrong credentials")
         
         user.update_last_login()
         # create token with the given details
@@ -118,9 +115,6 @@ class LogoutApi(APIView):
     permission_classes = [IsAuthenticated,]
 
     def post(self, request):
-        responce = Response(status=status.HTTP_200_OK)
+        responce = Response(data='Logout Successfull' , status=status.HTTP_200_OK)
         responce.delete_cookie("jwt")
-        responce.data = {"Logout Successful"}
         return responce
-
-

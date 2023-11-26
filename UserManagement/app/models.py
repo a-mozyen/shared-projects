@@ -57,8 +57,8 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     id = models.AutoField(verbose_name="User id", primary_key=True)
     username = models.CharField(verbose_name='Username', max_length=255, unique=True, blank=True, null=True)
-    first_name = models.CharField(verbose_name="First Name", max_length=255)
-    last_name = models.CharField(verbose_name="Last Name", max_length=255)
+    first_name = models.CharField(verbose_name="First Name", max_length=255, blank=True, null=True)
+    last_name = models.CharField(verbose_name="Last Name", max_length=255, blank=True, null=True)
     dob = models.DateField(verbose_name='Date of birth', null=True, blank=True)
     email = models.EmailField(verbose_name="Email Adress", max_length=255, unique=True)
     password = models.CharField(verbose_name="Password", max_length=255)

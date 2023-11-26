@@ -11,13 +11,17 @@ class CustomAuthentication(BaseAuthentication):
     def authenticate(self, request):
         try:
             token = request.COOKIES.get("jwt")
+            
+            if not token:
+                return None
+            
             payload = jwt.decode(token, settings.JWT_SECRET, algorithms=["HS256"])
             user = User.objects.get(id=payload["id"])
 
         except:
             raise AuthenticationFailed("Unauthorized")
 
-        return (user,)
+        return (user, None)
 
 
 
