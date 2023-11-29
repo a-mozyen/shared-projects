@@ -1,21 +1,25 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.hashers import make_password
 from django.core.validators import MinLengthValidator
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, email, phone, wallet):
+    def create_user(self, username, email, password, phone, wallet):
         user = self.model()
         user.username = username
         user.email = email
+        user.password = password
         user.phone = phone
         user.wallet = wallet
 
         user.save()
         return user
 
-    def create_superuser(self, username, phone):
+    def create_superuser(self, username, email, password, phone):
         user = self.create_user(
             username=username,
+            email=email,
+            password=password,
             phone=phone
             )
         
@@ -26,7 +30,8 @@ class User(AbstractBaseUser):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=25, unique=True)
     email = models.EmailField(unique=True, blank=True)
-    phone = models.CharField(max_length=9, validators=[MinLengthValidator(limit_value=9)], unique=True)
+    password = models.CharField(max_length=50)
+    phone = models.CharField(max_length=10, validators=[MinLengthValidator(limit_value=10)], unique=True)
     wallet = models.IntegerField(blank=True)
     income = models.IntegerField()
     
@@ -46,8 +51,8 @@ class User(AbstractBaseUser):
     marital_status = models.CharField(max_length=15, choices=MARITAL_STATUS_CHOICES, default='single')
     
 
-    USERNAME_FIELD = 'phone'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username', 'password']
 
     objects = UserManager()
 
