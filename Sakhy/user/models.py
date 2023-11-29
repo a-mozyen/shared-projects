@@ -28,6 +28,22 @@ class User(AbstractBaseUser):
     email = models.EmailField(unique=True, blank=True)
     phone = models.CharField(max_length=9, validators=[MinLengthValidator(limit_value=9)], unique=True)
     wallet = models.IntegerField(blank=True)
+    income = models.IntegerField()
+    
+    INCOME_SOURCE_CHOICES = [
+        ('job', 'Job'),
+        ('freelancer', 'Freelancer'),
+        ('other', 'Other')
+    ]
+    income_source = models.CharField(max_length=15, choices=INCOME_SOURCE_CHOICES, default='job')
+
+    MARITAL_STATUS_CHOICES = [
+        ('single', 'Single'),
+        ('married', 'Married'),
+        ('widower', 'Widower'),
+        ('divorced', 'Divorced')
+    ]
+    marital_status = models.CharField(max_length=15, choices=MARITAL_STATUS_CHOICES, default='single')
     
 
     USERNAME_FIELD = 'phone'
