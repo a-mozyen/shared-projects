@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.hashers import make_password
@@ -56,3 +57,7 @@ class User(AbstractBaseUser):
 
     objects = UserManager()
 
+    def save(self):
+        self.email = self.email.lower()
+        self.password = make_password(self.password)
+        super(User, self).save()
