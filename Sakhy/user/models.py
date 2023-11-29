@@ -30,7 +30,6 @@ class User(AbstractBaseUser):
     wallet = models.IntegerField(blank=True)
     
 
-
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = ['username']
 
