@@ -11,27 +11,30 @@ from .models import User
 
 class Register(APIView):
     def post(self, request):
-        data = request.data
-        serializer = UserSerializer(data=data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
+        user = UserSerializer(data=request.data)
+        if user.is_valid(raise_exception=True):
+            user.save()
             return Response(data='User created', status=status.HTTP_201_CREATED)
+        else:
+            raise APIException(detail=user.errors)
 
 
 class Login(APIView):
     def post(self, request):
-        email = request.data.get('email')
-        email = email.lower()
-        user = User.objects.get(email=email)
-        if not user:
-            raise APIException(detail='User not found!')
+        try:
+            email = request.data.get('email')
+            email = email.lower()
+            user = User.objects.get(email=email)
+        except:
+            raise APIException(detail='Wrong credentials')
         
-        password = request.data.get('password')
-        pwd = check_password(password=password, encoded=user.password)
-        if not pwd:
-            raise APIException(detail="Wrong credentials")
+        try:
+            password = request.data.get('password')
+            check_password(password=password, encoded=user.password)
+        except:
+            raise APIException(detail='Wrong credentials')
         
-        token = create_token(id=user.id, username=user.username, email=user.email, phone=user.phone)
+        token = create_token(id=user.id, username=user.username, email=user.email)
         responce = Response(data="Login successfull", status=status.HTTP_200_OK)
         responce.set_cookie(key="jwt", value=token, httponly=True)
         return responce
@@ -48,8 +51,6 @@ class UserDetails(APIView):
     def patch(self, request):
         user = User.objects.get(id=request.user.id)
         data = request.data
-        if data is None:
-            return APIException(detail='Nothing to update!')
         serializer = UserSerializer(instance=user, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()

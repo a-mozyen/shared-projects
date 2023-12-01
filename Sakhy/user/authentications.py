@@ -23,12 +23,11 @@ class CustomAuthentication(BaseAuthentication):
 
 
 
-def create_token(id: int, username: str, email: str, phone: str):
+def create_token(id: int, username: str, email: str):
     payload = dict(
         id=id,
         username=username,
         email=email,
-        phone=phone,
         exp=datetime.utcnow() + timedelta(hours=2),
         iat=datetime.utcnow()
     )
