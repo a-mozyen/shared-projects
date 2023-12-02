@@ -9,18 +9,17 @@ class CustomAuthentication(BaseAuthentication):
     def authenticate(self, request):
         try:
             token = request.COOKIES.get("jwt")
-            
+
             if not token:
                 return None
-            
-            payload = jwt.decode(token, 'jwt-secret', algorithms=["HS256"])
-            user = User.objects.get(id=payload['id'])
+
+            payload = jwt.decode(token, "jwt-secret", algorithms=["HS256"])
+            user = User.objects.get(id=payload["id"])
 
         except:
             raise AuthenticationFailed("Unauthorized")
 
         return (user, None)
-
 
 
 def create_token(id: int, username: str, email: str):
@@ -29,7 +28,7 @@ def create_token(id: int, username: str, email: str):
         username=username,
         email=email,
         exp=datetime.utcnow() + timedelta(hours=2),
-        iat=datetime.utcnow()
+        iat=datetime.utcnow(),
     )
-    token = jwt.encode(payload, 'jwt-secret', algorithm='HS256')
+    token = jwt.encode(payload, "jwt-secret", algorithm="HS256")
     return token
