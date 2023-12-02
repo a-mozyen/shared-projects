@@ -34,6 +34,7 @@ class Orders(APIView):
     def post(self, request, coupon_id):
         user = User.objects.get(id=request.user.id)
         coupon = Coupon.objects.get(coupon_id=coupon_id)
+        store = coupon.store_id
 
         if not user:
             raise exceptions.APIException(detail='Error retrieving user data')
@@ -46,7 +47,7 @@ class Orders(APIView):
             user.wallet -= coupon.coupon_price
             user.save()
         else:
-            raise exceptions.APIException(detail='Insufficient funds in the wallet')
+            raise exceptions.APIException(detail='Insufficient funds in your wallet')
         
         order_amount = request.data.get('order_amount')
         if not order_amount:
@@ -54,6 +55,7 @@ class Orders(APIView):
 
         order = Order.objects.create(
             user_id=user, 
+            store_id=store,
             coupon_id=coupon, 
             order_amount=order_amount
             )
