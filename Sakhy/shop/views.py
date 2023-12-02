@@ -36,15 +36,37 @@ class Orders(APIView):
         coupon = Coupon.objects.get(coupon_id=coupon_id)
 
         if not user:
-            raise exceptions.APIException(detail='user error')
+            raise exceptions.APIException(detail='Error retrieving user data')
         
         if not coupon:
             raise exceptions.APIException(detail='Coupon not found')
         
-        user.wallet -= coupon.coupon_price
-        user.save()
+        
+        if user.wallet >= coupon.coupon_price:
+            user.wallet -= coupon.coupon_price
+            user.save()
+        else:
+            raise exceptions.APIException(detail='Insufficient funds in the wallet')
+        
+        order_amount = request.data.get('order_amount')
+        if not order_amount:
+            order_amount = 1
 
-        order = Order.objects.create(user_id=user, coupon_id=coupon)
-        serializer = OrderSerializer(order)
+        order = Order.objects.create(
+            user_id=user, 
+            coupon_id=coupon, 
+            order_amount=order_amount
+            )
+        
+        serializer = OrderSerializer(instance=order)
         return Response(data=serializer.data)
     
+class UserOrders(APIView):
+    authentication_classes = [CustomAuthentication,]
+    permission_classes = [IsAuthenticated,]
+    def get(self, request):
+        orders = Order.objects.filter(user_id=request.user.id)
+        serializer = OrderSerializer(orders, many=True)
+        
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+        

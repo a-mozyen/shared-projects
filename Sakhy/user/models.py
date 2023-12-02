@@ -44,7 +44,7 @@ class User(AbstractBaseUser):
     ]
     country_code = models.CharField(max_length=10, default='SA +966', null=True)
     phone = models.CharField(max_length=9, validators=[MinLengthValidator(limit_value=9)], unique=True, null=True)
-    wallet = models.FloatField(null=True)
+    wallet = models.FloatField(default=0)
     income = models.IntegerField(null=True)
     INCOME_SOURCE_CHOICES = [
         ('job', 'Job'),

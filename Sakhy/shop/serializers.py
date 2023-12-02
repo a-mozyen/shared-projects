@@ -16,8 +16,8 @@ class CouponSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     store_id = serializers.StringRelatedField()
-    coupon_id = serializers.StringRelatedField()
+    user_id = serializers.StringRelatedField()
     class Meta:
         model = Order
         fields = '__all__'
-        read_only_fields = ('order_id', 'order_date', 'order_amount', 'coupon_id', 'user_id')
+        read_only_fields = ('order_id', 'order_date', 'coupon_id', 'user_id')
