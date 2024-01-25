@@ -1,0 +1,343 @@
+[
+    {
+        "hijri": "Al Juma'a 18-05-1445",
+        "gregorian": "Friday 01-12-2023",
+        "timings": {
+            "Fajr": "05:31 AM",
+            "Dhuhr": "12:17 PM",
+            "Asr": "03:19 PM",
+            "Maghrib": "05:39 PM",
+            "Isha": "07:09 PM"
+        }
+    },
+    {
+        "hijri": "Al Sabt 19-05-1445",
+        "gregorian": "Saturday 02-12-2023",
+        "timings": {
+            "Fajr": "05:32 AM",
+            "Dhuhr": "12:17 PM",
+            "Asr": "03:19 PM",
+            "Maghrib": "05:39 PM",
+            "Isha": "07:09 PM"
+        }
+    },
+    {
+        "hijri": "Al Ahad 20-05-1445",
+        "gregorian": "Sunday 03-12-2023",
+        "timings": {
+            "Fajr": "05:33 AM",
+            "Dhuhr": "12:17 PM",
+            "Asr": "03:19 PM",
+            "Maghrib": "05:40 PM",
+            "Isha": "07:10 PM"
+        }
+    },
+    {
+        "hijri": "Al Athnayn 21-05-1445",
+        "gregorian": "Monday 04-12-2023",
+        "timings": {
+            "Fajr": "05:33 AM",
+            "Dhuhr": "12:18 PM",
+            "Asr": "03:20 PM",
+            "Maghrib": "05:40 PM",
+            "Isha": "07:10 PM"
+        }
+    },
+    {
+        "hijri": "Al Thalaata 22-05-1445",
+        "gregorian": "Tuesday 05-12-2023",
+        "timings": {
+            "Fajr": "05:34 AM",
+            "Dhuhr": "12:18 PM",
+            "Asr": "03:20 PM",
+            "Maghrib": "05:40 PM",
+            "Isha": "07:10 PM"
+        }
+    },
+    {
+        "hijri": "Al Arba'a 23-05-1445",
+        "gregorian": "Wednesday 06-12-2023",
+        "timings": {
+            "Fajr": "05:34 AM",
+            "Dhuhr": "12:19 PM",
+            "Asr": "03:20 PM",
+            "Maghrib": "05:40 PM",
+            "Isha": "07:10 PM"
+        }
+    },
+    {
+        "hijri": "Al Khamees 24-05-1445",
+        "gregorian": "Thursday 07-12-2023",
+        "timings": {
+            "Fajr": "05:35 AM",
+            "Dhuhr": "12:19 PM",
+            "Asr": "03:20 PM",
+            "Maghrib": "05:40 PM",
+            "Isha": "07:10 PM"
+        }
+    },
+    {
+        "hijri": "Al Juma'a 25-05-1445",
+        "gregorian": "Friday 08-12-2023",
+        "timings": {
+            "Fajr": "05:36 AM",
+            "Dhuhr": "12:19 PM",
+            "Asr": "03:20 PM",
+            "Maghrib": "05:40 PM",
+            "Isha": "07:10 PM"
+        }
+    },
+    {
+        "hijri": "Al Sabt 26-05-1445",
+        "gregorian": "Saturday 09-12-2023",
+        "timings": {
+            "Fajr": "05:36 AM",
+            "Dhuhr": "12:20 PM",
+            "Asr": "03:21 PM",
+            "Maghrib": "05:41 PM",
+            "Isha": "07:11 PM"
+        }
+    },
+    {
+        "hijri": "Al Ahad 27-05-1445",
+        "gregorian": "Sunday 10-12-2023",
+        "timings": {
+            "Fajr": "05:37 AM",
+            "Dhuhr": "12:20 PM",
+            "Asr": "03:21 PM",
+            "Maghrib": "05:41 PM",
+            "Isha": "07:11 PM"
+        }
+    },
+    {
+        "hijri": "Al Athnayn 28-05-1445",
+        "gregorian": "Monday 11-12-2023",
+        "timings": {
+            "Fajr": "05:37 AM",
+            "Dhuhr": "12:21 PM",
+            "Asr": "03:21 PM",
+            "Maghrib": "05:41 PM",
+            "Isha": "07:11 PM"
+        }
+    },
+    {
+        "hijri": "Al Thalaata 29-05-1445",
+        "gregorian": "Tuesday 12-12-2023",
+        "timings": {
+            "Fajr": "05:38 AM",
+            "Dhuhr": "12:21 PM",
+            "Asr": "03:22 PM",
+            "Maghrib": "05:41 PM",
+            "Isha": "07:11 PM"
+        }
+    },
+    {
+        "hijri": "Al Arba'a 30-05-1445",
+        "gregorian": "Wednesday 13-12-2023",
+        "timings": {
+            "Fajr": "05:39 AM",
+            "Dhuhr": "12:22 PM",
+            "Asr": "03:22 PM",
+            "Maghrib": "05:42 PM",
+            "Isha": "07:12 PM"
+        }
+    },
+    {
+        "hijri": "Al Khamees 01-06-1445",
+        "gregorian": "Thursday 14-12-2023",
+        "timings": {
+            "Fajr": "05:39 AM",
+            "Dhuhr": "12:22 PM",
+            "Asr": "03:22 PM",
+            "Maghrib": "05:42 PM",
+            "Isha": "07:12 PM"
+        }
+    },
+    {
+        "hijri": "Al Juma'a 02-06-1445",
+        "gregorian": "Friday 15-12-2023",
+        "timings": {
+            "Fajr": "05:40 AM",
+            "Dhuhr": "12:23 PM",
+            "Asr": "03:23 PM",
+            "Maghrib": "05:42 PM",
+            "Isha": "07:12 PM"
+        }
+    },
+    {
+        "hijri": "Al Sabt 03-06-1445",
+        "gregorian": "Saturday 16-12-2023",
+        "timings": {
+            "Fajr": "05:40 AM",
+            "Dhuhr": "12:23 PM",
+            "Asr": "03:23 PM",
+            "Maghrib": "05:43 PM",
+            "Isha": "07:13 PM"
+        }
+    },
+    {
+        "hijri": "Al Ahad 04-06-1445",
+        "gregorian": "Sunday 17-12-2023",
+        "timings": {
+            "Fajr": "05:41 AM",
+            "Dhuhr": "12:24 PM",
+            "Asr": "03:23 PM",
+            "Maghrib": "05:43 PM",
+            "Isha": "07:13 PM"
+        }
+    },
+    {
+        "hijri": "Al Athnayn 05-06-1445",
+        "gregorian": "Monday 18-12-2023",
+        "timings": {
+            "Fajr": "05:41 AM",
+            "Dhuhr": "12:24 PM",
+            "Asr": "03:24 PM",
+            "Maghrib": "05:44 PM",
+            "Isha": "07:14 PM"
+        }
+    },
+    {
+        "hijri": "Al Thalaata 06-06-1445",
+        "gregorian": "Tuesday 19-12-2023",
+        "timings": {
+            "Fajr": "05:42 AM",
+            "Dhuhr": "12:25 PM",
+            "Asr": "03:24 PM",
+            "Maghrib": "05:44 PM",
+            "Isha": "07:14 PM"
+        }
+    },
+    {
+        "hijri": "Al Arba'a 07-06-1445",
+        "gregorian": "Wednesday 20-12-2023",
+        "timings": {
+            "Fajr": "05:42 AM",
+            "Dhuhr": "12:25 PM",
+            "Asr": "03:25 PM",
+            "Maghrib": "05:45 PM",
+            "Isha": "07:15 PM"
+        }
+    },
+    {
+        "hijri": "Al Khamees 08-06-1445",
+        "gregorian": "Thursday 21-12-2023",
+        "timings": {
+            "Fajr": "05:43 AM",
+            "Dhuhr": "12:26 PM",
+            "Asr": "03:25 PM",
+            "Maghrib": "05:45 PM",
+            "Isha": "07:15 PM"
+        }
+    },
+    {
+        "hijri": "Al Juma'a 09-06-1445",
+        "gregorian": "Friday 22-12-2023",
+        "timings": {
+            "Fajr": "05:43 AM",
+            "Dhuhr": "12:26 PM",
+            "Asr": "03:26 PM",
+            "Maghrib": "05:46 PM",
+            "Isha": "07:16 PM"
+        }
+    },
+    {
+        "hijri": "Al Sabt 10-06-1445",
+        "gregorian": "Saturday 23-12-2023",
+        "timings": {
+            "Fajr": "05:44 AM",
+            "Dhuhr": "12:27 PM",
+            "Asr": "03:26 PM",
+            "Maghrib": "05:46 PM",
+            "Isha": "07:16 PM"
+        }
+    },
+    {
+        "hijri": "Al Ahad 11-06-1445",
+        "gregorian": "Sunday 24-12-2023",
+        "timings": {
+            "Fajr": "05:44 AM",
+            "Dhuhr": "12:27 PM",
+            "Asr": "03:27 PM",
+            "Maghrib": "05:47 PM",
+            "Isha": "07:17 PM"
+        }
+    },
+    {
+        "hijri": "Al Athnayn 12-06-1445",
+        "gregorian": "Monday 25-12-2023",
+        "timings": {
+            "Fajr": "05:45 AM",
+            "Dhuhr": "12:28 PM",
+            "Asr": "03:27 PM",
+            "Maghrib": "05:47 PM",
+            "Isha": "07:17 PM"
+        }
+    },
+    {
+        "hijri": "Al Thalaata 13-06-1445",
+        "gregorian": "Tuesday 26-12-2023",
+        "timings": {
+            "Fajr": "05:45 AM",
+            "Dhuhr": "12:28 PM",
+            "Asr": "03:28 PM",
+            "Maghrib": "05:48 PM",
+            "Isha": "07:18 PM"
+        }
+    },
+    {
+        "hijri": "Al Arba'a 14-06-1445",
+        "gregorian": "Wednesday 27-12-2023",
+        "timings": {
+            "Fajr": "05:46 AM",
+            "Dhuhr": "12:29 PM",
+            "Asr": "03:28 PM",
+            "Maghrib": "05:48 PM",
+            "Isha": "07:18 PM"
+        }
+    },
+    {
+        "hijri": "Al Khamees 15-06-1445",
+        "gregorian": "Thursday 28-12-2023",
+        "timings": {
+            "Fajr": "05:46 AM",
+            "Dhuhr": "12:29 PM",
+            "Asr": "03:29 PM",
+            "Maghrib": "05:49 PM",
+            "Isha": "07:19 PM"
+        }
+    },
+    {
+        "hijri": "Al Juma'a 16-06-1445",
+        "gregorian": "Friday 29-12-2023",
+        "timings": {
+            "Fajr": "05:47 AM",
+            "Dhuhr": "12:30 PM",
+            "Asr": "03:29 PM",
+            "Maghrib": "05:49 PM",
+            "Isha": "07:19 PM"
+        }
+    },
+    {
+        "hijri": "Al Sabt 17-06-1445",
+        "gregorian": "Saturday 30-12-2023",
+        "timings": {
+            "Fajr": "05:47 AM",
+            "Dhuhr": "12:30 PM",
+            "Asr": "03:30 PM",
+            "Maghrib": "05:50 PM",
+            "Isha": "07:20 PM"
+        }
+    },
+    {
+        "hijri": "Al Ahad 18-06-1445",
+        "gregorian": "Sunday 31-12-2023",
+        "timings": {
+            "Fajr": "05:47 AM",
+            "Dhuhr": "12:31 PM",
+            "Asr": "03:30 PM",
+            "Maghrib": "05:51 PM",
+            "Isha": "07:21 PM"
+        }
+    }
+]
